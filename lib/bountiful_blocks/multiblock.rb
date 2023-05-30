@@ -1,7 +1,11 @@
 module BountifulBlocks
   class Multiblock
-    def initialize &block
+    def initialize *required_blocks, &block
       instance_exec(&block)
+
+      missing_blocks = required_blocks.reject { |method_name| given? method_name }
+
+      raise ArgumentError, "Block required for #{missing_blocks.join ', '}" unless missing_blocks.empty?
     end
 
     def method_missing(name, *args, **kwargs, &block)
