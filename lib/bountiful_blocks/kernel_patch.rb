@@ -1,7 +1,7 @@
 module Kernel
   # rubocop:disable Naming/MethodName
-  def Multiblock &block
-    BountifulBlocks::Multiblock.new(&block)
+  def Multiblock *args, **kwargs, &block
+    BountifulBlocks::Multiblock.new(*args, **kwargs, &block)
   end
   # rubocop:enable Naming/MethodName
 end
