@@ -16,5 +16,9 @@ module BountifulBlocks
 
       true
     end
+
+    def given? name
+      singleton_class.method_defined? name
+    end
   end
 end
