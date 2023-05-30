@@ -12,7 +12,6 @@ module BountifulBlocks
     end
 
     def respond_to_missing?(name, *args, **kwargs, &block)
-      super unless args.empty? && kwargs.empty?
       super if name.end_with? '!', '?', '='
 
       true
