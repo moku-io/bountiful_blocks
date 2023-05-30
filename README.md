@@ -1,6 +1,6 @@
 # BountifulBlocks
 
-
+A simple and idiomatic way to pass multiple blocks to a method. 
 
 ## Installation
 
@@ -24,7 +24,75 @@ gem install bountiful_blocks
 
 ## Usage
 
+Bountiful Blocks allows you to pass multiple arbitrary blocks to a method:
 
+```ruby
+def deliver message, &block
+  mb = Multiblock(&block)
+  
+  ...
+  
+  if response.success?
+    mb.on_success response.body
+  else
+    mb.on_error response.code
+  end
+end
+
+deliver('Hello World!') do
+  on_success do |body|
+    puts body
+  end
+  
+  on_error do |code|
+    raise ClientError, code
+  end
+end
+```
+
+`Kernel#Multiblock` is a simple wrapper for `BountifulBlocks::Multiblock.new`.
+
+You can provide names for required blocks, which will be checked on creation of the multiblock:
+
+```ruby
+def deliver message, &block
+  mb = Multiblock(:on_success, :on_error, &block)
+  
+  ...
+  
+  if response.success?
+    mb.on_success response.body
+  else
+    mb.on_error response.code
+  end
+end
+
+deliver('Hello World!') do
+  on_success do |body|
+    puts body
+  end
+end
+
+# => Block required for on_error (ArgumentError)
+```
+
+Alternatively, you can check whether a block with a given name was provided with `Multiblock#given?`:
+
+```ruby
+def deliver message, &block
+  mb = Multiblock(:on_success, &block)
+  
+  ...
+  
+  if response.success?
+    mb.on_success response.body
+  elsif mb.given? :on_error
+    mb.on_error response.code
+  else
+    'Fallback'
+  end
+end
+```
 
 ## Version numbers
 

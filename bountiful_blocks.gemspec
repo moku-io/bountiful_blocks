@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.email = ['info@moku.io']
   spec.license = 'MIT'
 
-  spec.summary = 'xx'
-  spec.description = 'xx'
+  spec.summary = 'A simple and idiomatic way to pass multiple blocks to a method.'
+  spec.description = 'A simple and idiomatic way to pass multiple blocks to a method.'
   spec.homepage = 'https://github.com/moku-io/bountiful_blocks'
   spec.required_ruby_version = '>= 2.6.0'
 
