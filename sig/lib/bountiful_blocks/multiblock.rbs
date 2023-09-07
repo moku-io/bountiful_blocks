@@ -1,0 +1,9 @@
+module BountifulBlocks
+  class Multiblock
+    def initialize: (*Symbol required_blocks) { () -> untyped } -> void
+    def given?: (Symbol name) -> bool
+    def given!: () -> Array[Symbol]
+    def raw!: () -> untyped
+    def call_all!: () -> Hash[Symbol, untyped]
+  end
+end

@@ -1,0 +1,3 @@
+module Kernel
+  def Multiblock: (*Symbol required_blocks) { () -> untyped } -> BountifulBlocks::Multiblock
+end
