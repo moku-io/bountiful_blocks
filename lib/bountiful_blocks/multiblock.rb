@@ -9,14 +9,14 @@ module BountifulBlocks
     end
 
     def method_missing(name, *args, **kwargs, &block)
-      super unless args.empty? && kwargs.empty?
-      super if name.end_with? '!', '?', '='
+      return super unless args.empty? && kwargs.empty?
+      return super if name.end_with? '!', '?', '='
 
       define_singleton_method name, &block
     end
 
     def respond_to_missing?(name, *args, **kwargs, &block)
-      super if name.end_with? '!', '?', '='
+      return super if name.end_with? '!', '?', '='
 
       true
     end
