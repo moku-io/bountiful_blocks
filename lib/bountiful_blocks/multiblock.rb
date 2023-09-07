@@ -8,6 +8,7 @@ module BountifulBlocks
       raise ArgumentError, "Block required for #{missing_blocks.join ', '}" unless missing_blocks.empty?
 
       given!.freeze
+      freeze
     end
 
     def method_missing(name, *args, **kwargs, &block)
