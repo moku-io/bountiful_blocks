@@ -37,5 +37,9 @@ module BountifulBlocks
     def raw!
       @raw
     end
+
+    def call_all!
+      given!.to_h { |name| [name, public_send(name)] }
+    end
   end
 end
