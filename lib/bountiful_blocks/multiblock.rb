@@ -1,7 +1,7 @@
 module BountifulBlocks
   class Multiblock
     def initialize *required_blocks, &block
-      instance_exec(&block)
+      @raw = instance_exec(&block)
 
       missing_blocks = required_blocks.reject { |method_name| given? method_name }
 
@@ -23,6 +23,10 @@ module BountifulBlocks
 
     def given? name
       singleton_class.method_defined? name
+    end
+
+    def raw!
+      @raw
     end
   end
 end
