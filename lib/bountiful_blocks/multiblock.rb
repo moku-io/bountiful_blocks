@@ -6,6 +6,8 @@ module BountifulBlocks
       missing_blocks = required_blocks.reject { |method_name| given? method_name }
 
       raise ArgumentError, "Block required for #{missing_blocks.join ', '}" unless missing_blocks.empty?
+
+      given!.freeze
     end
 
     def method_missing(name, *args, **kwargs, &block)
@@ -23,6 +25,12 @@ module BountifulBlocks
 
     def given? name
       singleton_class.method_defined? name
+    end
+
+    def given!
+      @given = [] unless defined?(@given)
+
+      @given
     end
 
     def raw!
