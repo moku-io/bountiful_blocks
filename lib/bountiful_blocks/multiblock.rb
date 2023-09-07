@@ -16,6 +16,8 @@ module BountifulBlocks
       return super if name.end_with? '!', '?', '='
 
       define_singleton_method name, &block
+
+      nil
     end
 
     def respond_to_missing?(name, *args, **kwargs, &block)
