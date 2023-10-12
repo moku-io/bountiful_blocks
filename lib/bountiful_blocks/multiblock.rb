@@ -7,6 +7,11 @@ module BountifulBlocks
 
       raise ArgumentError, "Block required for #{missing_blocks.join ', '}" unless missing_blocks.empty?
 
+      singleton_class.class_exec do
+        undef_method :method_missing
+        undef_method :respond_to_missing?
+      end
+
       given!.freeze
       given_blocks!.freeze
       freeze
