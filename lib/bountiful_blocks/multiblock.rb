@@ -8,6 +8,7 @@ module BountifulBlocks
       raise ArgumentError, "Block required for #{missing_blocks.join ', '}" unless missing_blocks.empty?
 
       given!.freeze
+      given_blocks!.freeze
       freeze
     end
 
@@ -17,6 +18,7 @@ module BountifulBlocks
 
       define_singleton_method name, &block
       given! << name
+      given_blocks![name] = block
 
       nil
     end
@@ -35,6 +37,12 @@ module BountifulBlocks
       @given = [] unless defined?(@given)
 
       @given
+    end
+
+    def given_blocks!
+      @given_blocks = {} unless defined?(@given_blocks)
+
+      @given_blocks
     end
 
     def raw!
