@@ -30,7 +30,7 @@ module BountifulBlocks
     end
 
     def given? name
-      singleton_class.method_defined? name
+      given_blocks!.key? name
     end
 
     def given!
@@ -49,8 +49,8 @@ module BountifulBlocks
       @raw
     end
 
-    def call_all!
-      given!.to_h { |name| [name, public_send(name)] }
+    def call_all!(*args, **kwargs, &block)
+      given_blocks!.transform_values { |given_block| given_block.call(*args, **kwargs, &block) }
     end
   end
 end
