@@ -105,7 +105,8 @@ To avoid conflicts, all utility method names will end in either `!`, `?`, or `=`
 - `raw!` returns the value returned by the block, which can be useful to allow a block to work both as a regular block and a multiblock.
 - `given?(name)` returns `true` if a block named `name` was provided.
 - `given!` returns the names of all the provided blocks.
-- `call_all!` returns a Hash that maps all block names to their results. Notice that since multiblocks are frozen, `call_all!` can't cache the Hash and must create a new one on every invocation.
+- `given_blocks!` returns all the provided blocks in a hash indexed by their names.
+- `call_all!` returns a Hash that maps all block names to their results. You can provide arguments to `call_all!` and they will be forwarded in turn to all blocks. Notice that since multiblocks are frozen, `call_all!` can't cache the Hash and must create a new one on every invocation.
 
 ## Version numbers
 
