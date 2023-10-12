@@ -7,7 +7,13 @@ module BountifulBlocks
 
       raise ArgumentError, "Block required for #{missing_blocks.join ', '}" unless missing_blocks.empty?
 
+      singleton_class.class_exec do
+        undef_method :method_missing
+        undef_method :respond_to_missing?
+      end
+
       given!.freeze
+      given_blocks!.freeze
       freeze
     end
 
@@ -16,6 +22,8 @@ module BountifulBlocks
       return super if name.end_with? '!', '?', '='
 
       define_singleton_method name, &block
+      given! << name
+      given_blocks![name] = block
 
       nil
     end
@@ -27,7 +35,7 @@ module BountifulBlocks
     end
 
     def given? name
-      singleton_class.method_defined? name
+      given_blocks!.key? name
     end
 
     def given!
@@ -36,12 +44,18 @@ module BountifulBlocks
       @given
     end
 
+    def given_blocks!
+      @given_blocks = {} unless defined?(@given_blocks)
+
+      @given_blocks
+    end
+
     def raw!
       @raw
     end
 
-    def call_all!
-      given!.to_h { |name| [name, public_send(name)] }
+    def call_all!(*args, **kwargs, &block)
+      given_blocks!.transform_values { |given_block| given_block.call(*args, **kwargs, &block) }
     end
   end
 end
