@@ -8,6 +8,17 @@
 ### Bug fixes
 )-->
 
+## 1.1.1 2023-10-12
+
+### New features
+
+- Added `given_blocks!` utility method.
+
+### Bug fixes
+
+- The `given!` utility method was never filled during instantiation, now it works as described.
+- Trying to invoke a block that was not passed now produces `NoMethodError` instead of `FrozenError`.
+
 ## 1.1.0 2023-09-07
 
 ### New features
