@@ -16,6 +16,7 @@ module BountifulBlocks
       return super if name.end_with? '!', '?', '='
 
       define_singleton_method name, &block
+      given! << name
 
       nil
     end
